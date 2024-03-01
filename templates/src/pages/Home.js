@@ -45,7 +45,7 @@ export default class Home extends Component {
 
 				<section id="intro">
 					<div className="intro-content">
-						<h2>The ultimate way<br />to learn a language.</h2>
+						<h2>This is the Dev Team<br />2024.</h2>
 						<div>
 							<Link to='/games' className="btn-projects scrollto">Play ELLE</Link>
 						</div>
