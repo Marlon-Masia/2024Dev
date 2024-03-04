@@ -160,6 +160,26 @@ export default class AdminView extends Component {
           console.log(error.response); 
         })
     }
+
+    submitClassCode = (e) => {
+      e.preventDefault(); 
+
+      var data = {
+        groupCode: this.state.classCode
+      }
+  
+      var headers = {
+        'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+      }
+  
+      axios.post(this.props.serviceIP + '/groupregister', data, {headers:headers}
+      ).then(res => {
+        this.getClasses(); 
+        this.setState({ classCode: "" }); 
+      }).catch(error => {
+        console.log(error.response); 
+      })
+    }
     
     deleteClass = () => {
         let header = {
@@ -182,7 +202,7 @@ export default class AdminView extends Component {
                 <h3><Badge style={{backgroundColor: "cadetblue"}}>Your Profile</Badge></h3> 
                 <Row>
                     <Col xs="3">
-                    <Card style={{backgroundColor: "lightblue", height: "65vh"}}>
+                    <Card style={{overflow:"scroll", backgroundColor: "lightblue", height: "65vh"}}>
                     <CardBody>
                     <h6>Username:</h6>
                     <Card>
@@ -239,6 +259,21 @@ export default class AdminView extends Component {
                             />
                         </FormGroup>
                         <Button block type="submit">Create</Button>
+                    </Form>
+
+                    <Form onSubmit={e => this.submitClassCode(e)}>
+                        <h4 style={{marginTop: "8px"}}>Join a New Class</h4>
+                        <FormGroup>
+                            <Label for="classCode">Class Code: </Label>
+                            <Input 
+                                type="text"
+                                name="classCode"
+                                id="classCode"
+                                onChange={e => this.change(e)}
+                                value={this.state.classCode} 
+                            />
+                        </FormGroup>
+                        <Button block type="submit">Join</Button>
                     </Form>
 
                     </CardBody>
